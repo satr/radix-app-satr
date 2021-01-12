@@ -1,0 +1,107 @@
+apiVersion: radix.equinor.com/v1
+kind: RadixApplication
+metadata:
+  name: radix-app
+spec:
+  environments:
+    - name: qa
+      build:
+        from: main
+    - name: prod
+      build:
+        from: release
+  components:
+    - name: server
+      src: ./backend
+      ports:
+        - name: http
+          port: 3000
+      public: false
+      environmentConfig:
+        - environment: prod
+          variables:
+            PORT: 3000
+            NODE_ENV: production
+          monitoring: true
+          resources:
+            requests:
+              memory: "43Mi"
+              cpu: "10m"
+            limits:
+              memory: "43Mi"
+              cpu: "10m"
+          secrets:
+            - DB_USER
+            - DB_PASSWORD
+        - environment: qa
+          variables:
+            PORT: 3000
+          monitoring: true
+          resources:
+            requests:
+              memory: "41Mi"
+              cpu: "10m"
+            limits:
+              memory: "50Mi"
+              cpu: "10m"
+          secrets:
+          - DB_USER
+          - DB_PASSWORD
+    - name: www
+      src: ./frontend
+      ports:
+        - name: http
+          port: 3001
+      publicPort: http
+      environmentConfig:
+        - environment: prod
+          variables:
+            PORT: 3001
+            NODE_ENV: production
+            AUTH_CLIENT_ID: "ccafd22d-a1b7-4c7c-97db-d0422b08c6ad"
+            AUTH_RESOURCE: "96d4369b-a4df-4219-8230-e406e1164251"
+            AZURE_TENANT_ID: "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
+            BASE_AUTH_URL: "https://login.microsoftonline.com"
+            BASE_URL: "https://apismdatest.azurewebsites.net"
+            BACKEND_URL: "https://equinor.qa.backend.fieldap.com"
+            BACKEND_URLS: "https://equinor.qa.backend.fieldap.com https://equinor.backend.fieldap.com"
+            ECHO_URL: "http://server:3000"
+          monitoring: false
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
+            limits:
+              memory: "50Mi"
+              cpu: "10m"
+        - environment: qa
+          variables:
+            PORT: 3001
+            NODE_ENV: production
+            AUTH_CLIENT_ID: "ccafd22d-a1b7-4c7c-97db-d0422b08c6ad"
+            AUTH_RESOURCE: "96d4369b-a4df-4219-8230-e406e1164251"
+            AZURE_TENANT_ID: "3aa4a235-b6e2-48d5-9195-7fcf05b459b0"
+            BASE_AUTH_URL: "https://login.microsoftonline.com"
+            BASE_URL: "https://apismdatest.azurewebsites.net"
+            BACKEND_URL: "https://equinor.qa.backend.fieldap.com"
+            BACKEND_URLS: "https://equinor.qa.backend.fieldap.com https://equinor.backend.fieldap.com"
+            ECHO_URL: "http://server:3000"
+          monitoring: false
+          resources:
+            requests:
+              memory: "50Mi"
+              cpu: "10m"
+            limits:
+              memory: "50Mi"
+              cpu: "20m"
+  dnsAppAlias:
+    environment: dev
+    component: www
+  dnsExternalAlias:
+    - alias: radix-app.equinor.com
+      environment: prod
+      component: www
+    - alias: radix-app-alt.equinor.com
+      environment: prod
+      component: www
+  I

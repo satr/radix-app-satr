@@ -1,7 +1,7 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: radix-app
+  name: radix-app2
 spec:
   environments:
     - name: development

@@ -19,7 +19,7 @@ spec:
       variables:
         PORT: 3000
       node:
-        gpu: nvidia-v100
+        gpu: nvidia-v100,-nvidia-k80
       environmentConfig:
         - environment: prod
           variables:

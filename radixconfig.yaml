@@ -59,7 +59,7 @@ spec:
             maxReplicas: 5
           variables:
             NODE_ENV: production
-    - name: www
+    - name: www2
       src: ./frontend2
       dockerfileName: Dockerfile2
       ports:

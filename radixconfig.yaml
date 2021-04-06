@@ -26,12 +26,13 @@ spec:
             NODE_ENV: production
     - name: www
       src: ./frontend
+      dockerfileName: Dockerfile
       ports:
         - name: http
-          port: 3001
+          port: 3007
       publicPort: http
       variables:
-        PORT: 3001
+        PORT: 3007
         ECHO_URL: "http://server:3000"
       environmentConfig:
         - environment: development
@@ -42,6 +43,16 @@ spec:
             maxReplicas: 5
           variables:
             NODE_ENV: production
+    - name: www
+      src: ./frontend2
+      dockerfileName: Dockerfile2
+      ports:
+        - name: http
+          port: 3008
+      publicPort: http
+      variables:
+        PORT: 3008
+        ECHO_URL: "http://server:3000"
   dnsAppAlias:
     environment: prod
     component: www

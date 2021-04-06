@@ -60,7 +60,7 @@ spec:
           variables:
             NODE_ENV: production
     - name: www2
-      src: ./frontend2
+      src: ./frontend
       dockerfileName: Dockerfile2
       ports:
         - name: http

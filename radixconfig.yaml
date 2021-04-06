@@ -19,7 +19,23 @@ spec:
       variables:
         PORT: 3000
       node:
+        gpu: nvidia-v100,NviDia-p100,-nvidia-k80
+    - name: server2
+      src: ./backend
+      ports:
+        - name: http
+          port: 3000
+      node:
         gpu: nvidia-v100
+        gpuCount: 4
+    - name: server3
+      src: ./backend
+      ports:
+        - name: http
+          port: 3000
+      node:
+        gpu: nvidia-p100
+        gpuCount: 6
       environmentConfig:
         - environment: prod
           variables:

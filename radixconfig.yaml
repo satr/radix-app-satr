@@ -42,6 +42,8 @@ spec:
             NODE_ENV: production
     - name: www
       src: ./frontend
+      clientCertificate:
+        verification: "on"
       dockerfileName: Dockerfile
       ports:
         - name: http

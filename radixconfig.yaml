@@ -13,6 +13,7 @@ spec:
   components:
     - name: server
       src: ./backend
+      runAsNonRoot: true
       ports:
         - name: http
           port: 3000
@@ -31,6 +32,7 @@ spec:
             VAR_IN_PROD: "var in prod only"
     - name: www
       src: ./frontend
+      runAsNonRoot: true
       ports:
         - name: http
           port: 3007

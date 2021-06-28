@@ -18,33 +18,19 @@ spec:
           port: 3000
       variables:
         PORT: 3000
-      node:
-        gpu: nvidia-v100,NviDia-p100,-nvidia-k80
-    - name: server2
-      src: ./backend
-      ports:
-        - name: http
-          port: 3000
-      node:
-        gpu: nvidia-v100
-        gpuCount: 4
-    - name: server3
-      src: ./backend
-      ports:
-        - name: http
-          port: 3000
-      node:
-        gpu: nvidia-p100
-        gpuCount: 6
+        VAR1:
+        VAR2: "common value"
       environmentConfig:
+        - environment: development
+          variables:
+            VAR1: "set in dev"
+            VAR_IN_DEV: "var in dev only"
         - environment: prod
           variables:
-            NODE_ENV: production
+            VAR2: "overriden in prod"
+            VAR_IN_PROD: "var in prod only"
     - name: www
       src: ./frontend
-      clientCertificate:
-        verification: "on"
-      dockerfileName: Dockerfile
       ports:
         - name: http
           port: 3007
@@ -61,16 +47,6 @@ spec:
             maxReplicas: 5
           variables:
             NODE_ENV: production
-    - name: www2
-      src: ./frontend
-      dockerfileName: Dockerfile2
-      ports:
-        - name: http
-          port: 3008
-      publicPort: http
-      variables:
-        PORT: 3008
-        ECHO_URL: "http://server:3000"
   dnsAppAlias:
     environment: prod
     component: www

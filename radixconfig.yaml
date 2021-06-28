@@ -1,7 +1,7 @@
 apiVersion: radix.equinor.com/v1
 kind: RadixApplication
 metadata:
-  name: radix-app
+  name: radix-app-satr
 spec:
   environments:
     - name: development
@@ -13,23 +13,32 @@ spec:
   components:
     - name: server
       src: ./backend
+      runAsNonRoot: true
       ports:
         - name: http
           port: 3000
       variables:
         PORT: 3000
+        VAR1:
+        VAR2: "common value"
       environmentConfig:
+        - environment: development
+          variables:
+            VAR1: "set in dev"
+            VAR_IN_DEV: "var in dev only"
         - environment: prod
           variables:
-            NODE_ENV: production
+            VAR2: "overriden in prod"
+            VAR_IN_PROD: "var in prod only"
     - name: www
       src: ./frontend
+      runAsNonRoot: true
       ports:
         - name: http
-          port: 3001
+          port: 3007
       publicPort: http
       variables:
-        PORT: 3001
+        PORT: 3007
         ECHO_URL: "http://server:3000"
       environmentConfig:
         - environment: development

@@ -1,9 +1,9 @@
-version: '1'
+version: '2'
 services:
   www:
     build: frontend
     ports:
-     - "3001:3001"
+     - "3007:3007"
     environment:
      - ECHO_URL=http://server:3000
   server:

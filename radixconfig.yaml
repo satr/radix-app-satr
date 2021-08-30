@@ -21,6 +21,7 @@ spec:
         PORT: 3000
         VAR1:
         VAR2: "common value"
+      runAsNonRoot: true
       environmentConfig:
         - environment: development
           variables:
@@ -40,6 +41,7 @@ spec:
       variables:
         PORT: 3007
         ECHO_URL: "http://server:3000"
+      runAsNonRoot: true
       environmentConfig:
         - environment: development
           replicas: 2

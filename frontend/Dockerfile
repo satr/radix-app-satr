@@ -2,6 +2,8 @@
 # -- Base node image with app
 #
 FROM node:10-alpine AS base
+ARG BRANCH
+RUN echo "*********** BRANCH: $BRANCH"
 WORKDIR /usr/src/app
 COPY package.json package-lock.json app.js ./
 RUN mkdir -p ./bin ./routes

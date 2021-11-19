@@ -21,15 +21,16 @@ spec:
         PORT: 3000
         VAR1:
         VAR2: "common value"
+      runAsNonRoot: true
       environmentConfig:
         - environment: development
           variables:
-            VAR1: "set in dev"
-            VAR_IN_DEV: "var in dev only"
+            VAR1: "set in dev2"
+            VAR_IN_DEV: "var in dev only2"
         - environment: prod
           variables:
-            VAR2: "overriden in prod"
-            VAR_IN_PROD: "var in prod only"
+            VAR2: "overriden in prod2"
+            VAR_IN_PROD: "var in prod only2"
     - name: www
       src: ./frontend
       runAsNonRoot: true
@@ -40,6 +41,7 @@ spec:
       variables:
         PORT: 3007
         ECHO_URL: "http://server:3000"
+      runAsNonRoot: true
       environmentConfig:
         - environment: development
           replicas: 2

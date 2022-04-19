@@ -1,7 +1,7 @@
 #
 # -- Base node image with app
 #
-FROM node:10-alpine AS base
+FROM node:alpine3.15 AS base
 ARG BRANCH
 RUN echo "*********** BRANCH: $BRANCH"
 WORKDIR /usr/src/app

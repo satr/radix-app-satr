@@ -13,7 +13,6 @@ spec:
   components:
     - name: server
       src: ./backend
-      runAsNonRoot: true
       ports:
         - name: http
           port: 3000
@@ -21,7 +20,6 @@ spec:
         PORT: 3000
         VAR1:
         VAR2: "common value"
-      runAsNonRoot: true
       environmentConfig:
         - environment: development
           variables:
@@ -33,7 +31,6 @@ spec:
             VAR_IN_PROD: "var in prod only2"
     - name: www
       src: ./frontend
-      runAsNonRoot: true
       ports:
         - name: http
           port: 3007
@@ -41,7 +38,6 @@ spec:
       variables:
         PORT: 3007
         ECHO_URL: "http://server:3000"
-      runAsNonRoot: true
       environmentConfig:
         - environment: development
           replicas: 2
